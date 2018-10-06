@@ -1,0 +1,104 @@
+// Styling for the SoGive app
+
+@import "../js/base/style/main-base.less";
+
+@import "colours.less";
+@import "positioning.less";
+@import "buttons.less";
+
+@font-face {
+	font-family: 'Roboto';
+	src: url('../fonts/Roboto-Regular.ttf');
+}
+
+.avoid-navbar {
+    margin-top: @navbar-height + 1;
+}
+
+.navbar-brand, .navbar-nav li a {
+    line-height: @navbar-height;
+    height: @navbar-height;
+    text-transform: lowercase;
+}
+
+/* Override the above so the account/logout menu looks normal */
+.dropdown-menu li a {
+	line-height: initial !important;
+	height: auto !important;
+}
+
+#navbar {
+	background-color: @colour-03;
+	font-size: 1.5em;
+}
+
+.navbar-inverse {
+	background-color: @colour-03;
+}
+
+.navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:focus, .navbar-inverse .navbar-nav>.active>a:hover {
+	background-color: @colour-03;
+}
+
+.messagebar {
+	margin-top:5px;
+}
+
+@import "animation.less";
+
+// Page specific stuff
+@import "Page.less";
+@import "EditCharityPage.less";
+@import "SearchPage.less";
+@import "CharityPage.less";
+@import "CharityPageImpactAndDonate.less";
+@import "DonationWizard.less";
+@import "FundRaiserPage.less";
+@import "RegisterPage.less";
+@import "SocialShare.less";
+@import "LoginWidget.less";
+@import "footer.less";
+@import "EventPage.less";
+@import "ShareWidget.less";
+
+/* https://css-tricks.com/snippets/css/a-guide-to-flexbox/ */
+.flexbox-1row {
+	display: flex;
+	flex-wrap: nowrap;
+	justify-content: center; // flex-start | flex-end | center | space-between | space-around;
+}
+.flexbox {
+	display: flex;
+}
+.flexitem {
+
+}
+
+// Let any singleton column be centred in its row
+.container .row .col-center {
+	float: none;
+	margin: 0 auto;
+}
+
+// Make the login widget a modal overlay
+.login-modal {
+	position: fixed;
+	height: 100%;
+	width: 100%;
+	top: 0;
+	left: 0;
+	background: rgba(0,0,0,0.5);
+	z-index: 9999;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+body {
+	font-family: 'Nunito Sans', sans-serif;
+	color: @colour-03;
+}
+
+.full-width {
+	width: 100% !important;
+}
