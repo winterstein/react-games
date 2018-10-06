@@ -5,7 +5,7 @@ import _ from 'lodash';
 import { XId, encURI } from 'wwutils';
 
 import printer from '../base/utils/printer';
-// import C from '../C';
+import C from '../C';
 import ServerIO from '../plumbing/ServerIO';
 import DataStore from '../base/plumbing/DataStore';
 import Misc from '../base/components/Misc';
@@ -17,19 +17,27 @@ const gpath = ['game','hangman'];
  * hangman where the word is changed if it can be to cost a life
  */
 const EvilHangmanPage = () => {
-	let newGame = {wordLength: 6, guessed:[], evil:false};
 	let gstate = DataStore.getValue(gpath) || DataStore.setValue(['game','hangman'], newGame);
-	if ( ! gstate.letters) {
-		gstate.letters = [];
-		for(let i=0; i<gstate.wordLength; i++) gstate.letters.push('?');
-	}
 	// TODO set new game
 	// TODO load a dictionary
+	let pvdict = DataStore.fetch(['misc','dict'],() => {
+		return $.get('/data/dictionary.txt')
+		.then(res => {
+			console.log('dictres',res);
+			let words = res.split(/\s+/);
+			words = words.filter(w => w === w.toLowerCase() && w.indexOf("'")===-1);
+			words = words.map(w => w.trim());
+			return  words;
+		});
+	});
 	gstate.candidateWords = ['abacus','beetle','jungle','jumper'];
-
+	if ( ! gstate.status) {
+		return (
+			<NewGame />
+		);
+	}
 	return (
 		<div className="page EvilHangmanPage">
-			<NewGame />
 			<Guesses gstate={gstate} />
 			<Gallows gstate={gstate} />
 			<Word gstate={gstate} />
@@ -52,6 +60,9 @@ const NewGame = () => {
 
 const newGame = () => {
 	let gstate = DataStore.getValue(gpath);
+	gstate.guessed=[];
+	gstate.misses=[];
+	if ( ! gstate.wordLength) gstate.wordLength = 6;
 	gstate.letters = [];
 	for(let i=0; i<gstate.wordLength; i++) gstate.letters.push('?');
 	if (gstate.evil) {
@@ -59,22 +70,37 @@ const newGame = () => {
 	} else {
 		let i = Math.round(Math.random() * gstate.candidateWords.length);
 		gstate.word = gstate.candidateWords[i];
-	}
+	}	
+	gstate.status = C.KStatus.PUBLISHED;
 };
 
 const guessLetter = e => {
 	const gstate = DataStore.getValue(gpath);
-	const letter = gstate.letter;
+	let letter = gstate.letter;
 	if ( ! letter) return;
 	if ( ! gstate.guessed) gstate.guessed = [];
+	letter = letter.trim()[0]; // one character only
 	gstate.guessed.push(letter);
 	gstate.letter = null;
 	// winnow down words
 	// is the letter in?
+	let ok = false;
+	if (gstate.word) {
+		for(let i=0; i<gstate.word.length; i++) {
+			if (gstate.word[i] === letter) {
+				gstate.letters[i] = letter;
+				ok = true;
+			}
+		}
+	}
+	if ( ! ok) {
+		gstate.misses.push(letter);
+	}
 	DataStore.update();
 };
 
-const Word = ({letters}) => {
+const Word = ({gstate}) => {
+	let {guessed, letters} = gstate;
 	return (<div>{letters}</div>);
 };
 
@@ -84,8 +110,7 @@ const Guesses = ({gstate}) => {
 };
 
 const Gallows = ({gstate}) => {
-	let {guessed, letters} = gstate;
-	let misses = guessed.filter(c => letters.indexOf(c) !== -1);
+	let {guessed, letters, misses} = gstate;
 	return (<div>TODO Gallows: stage {misses.length}</div>);
 };
 
