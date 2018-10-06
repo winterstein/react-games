@@ -14,79 +14,30 @@ import NavBar from '../base/components/NavBar';
 import LoginWidget from '../base/components/LoginWidget';
 // Pages
 import DashboardPage from './DashboardPage';
-import SearchPage from './SearchPage';
-import AccountPage from './AccountPage';
+import FossilPage from './FossilPage';
+import {BasicAccountPage} from './base/components/AccountPageWidgets';
+import GardenPage from './GardenPage';
+import EvilHangmanPage from './EvilHangmanPage';
 import AboutPage from '../base/components/AboutPage';
-import CharityPage from './CharityPage';
-import EditCharityPage from './editor/EditCharityPage';
-import EditorDashboardPage from './editor/EditorDashboardPage';
-import ExchangeRatesPage from './editor/ExchangeRatesPage';
-import FundRaiserPage from './FundRaiserPage';
-import EditFundRaiserPage from './editor/EditFundRaiserPage';
-import ManageDonationsPage from './editor/ManageDonationsPage';
-import EditEventPage from './editor/EditEventPage';
-import EventPage from './EventPage';
-import EventReportPage from './editor/EventReportPage';
-import RegisterPage from './RegisterPage';
 import E404Page from '../base/components/E404Page';
 import TestPage from '../base/components/TestPage';
 
 /**
  * init DataStore
  */
-DataStore.update({
-	data: {
-		NGO: {},
-		User: {},
-		Donation: {},
-		Fundraiser: {},
-		Basket: {}
-	},
-	draft: {
-		NGO: {},
-		User: {},
-		Donation: {},
-		Fundraiser: {},
-		Basket: {}
-	},
-	// Use list to store search results
-	list: {
-
-	},
-	focus: {
-		NGO: null,
-		User: null,
-	},	
-	widget: {},
-	misc: {
-	},
-	/** status of server requests, for displaying 'loading' spinners 
-	 * Normally: transient.$item_id.status
-	*/
-	transient: {}
-});
-
+C.setupDataStore();
 
 const PAGES = {
-	event: EventPage,
-	editEvent: EditEventPage,
-	eventReport: EventReportPage,
-	register: RegisterPage,
-	fundraiser: FundRaiserPage,
-	editFundraiser: EditFundRaiserPage,
-	search: SearchPage,
 	dashboard: DashboardPage,
-	editordashboard: EditorDashboardPage,
-	manageDonations: ManageDonationsPage,
-	account: AccountPage,
-	charity: CharityPage,
-	edit: EditCharityPage,
-	exchangeRates: ExchangeRatesPage,
+	account: BasicAccountPage,
 	about: AboutPage,
-	test: TestPage	
+	test: TestPage,
+	fossil: FossilPage,
+	garden: GardenPage,
+	evilhangman: EvilHangmanPage,
 };
 
-const DEFAULT_PAGE = 'search';
+const DEFAULT_PAGE = 'account';
 
 /**
 		Top-level: tabs
@@ -161,10 +112,7 @@ class MainDiv extends Component {
 				</div>);
 		}
 		// which pages?
-		let pages = ['dashboard', 'search'];
-		if (Roles.iCan(C.CAN.test).value) { // TODO for everyone, not just dev
-			pages = pages.concat(['event', 'fundraiser']);
-		}
+		let pages = ['dashboard', 'garden', 'fossil', 'evilhangman'];
 		
 		let msgs = Object.values(DataStore.getValue('misc', 'messages-for-user') || {});
 		return (
