@@ -15,7 +15,7 @@ import LoginWidget from '../base/components/LoginWidget';
 // Pages
 import DashboardPage from './DashboardPage';
 import FossilPage from './FossilPage';
-import {BasicAccountPage} from './base/components/AccountPageWidgets';
+import {BasicAccountPage} from '../base/components/AccountPageWidgets';
 import GardenPage from './GardenPage';
 import EvilHangmanPage from './EvilHangmanPage';
 import AboutPage from '../base/components/AboutPage';

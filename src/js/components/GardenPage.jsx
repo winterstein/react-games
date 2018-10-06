@@ -11,7 +11,7 @@ import DataStore from '../base/plumbing/DataStore';
 import Misc from '../base/components/Misc';
 import {LoginLink} from '../base/components/LoginWidget';
 import {DropZone, Draggable, dragstate} from '../base/components/DragDrop';
-import {getActiveSprites, getSprite} from './gardenGame';
+import {getActiveSprites, getSprite} from '../engine/garden-game';
 
 // https://www.gamedevmarket.net/asset/animated-insects-6303/
 // https://graphicriver.net/item/funny-flying-bugs/13665994?s_rank=4
@@ -72,7 +72,3 @@ const Card = ({sprite}) => {
 
 export default GardenPage;
 
-
-
-// WEBPACK FOOTER //
-// ./src/js/components/GardenPage.jsx
