@@ -1,0 +1,170 @@
+@import "positioning.less";
+@import "colours.less";
+
+.bottom-divider {
+	border-bottom: 1px solid @charity-page-greyline;
+}
+
+#FundRaiserPage {
+	background: white;
+
+	.row {
+		.bottom-divider;
+	}
+
+	.event-banner {
+		padding: 0 0;
+		img {
+			width: 100%;
+		}
+	}
+
+	.title-bar {
+		background: linear-gradient(to right, #696a76, #aeafb5);
+		color: white;
+		text-align: center;
+		font-weight: bold;
+		h2 {
+			margin: 0.5em auto;
+		}
+	}
+
+	.vitals {
+		/* ??Hard-coded height was causing odd layout. min-height fixes that. Minor thought: Can we do height using flex layout instead, so it works nicely on any screen size?? ^Dan */
+		min-height: 350px;
+		background: linear-gradient(to bottom, @grey 0% , @grey 50%, white 50%, white 100%);
+
+		.user-event-photo {
+			position: relative;
+			top: 25px;
+			height: 300px;
+			width: 300px;
+			background-image: url('/img/circle-bg-left.svg');
+			background-size: contain;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			margin: auto;
+			img {
+				height: 80%;
+				width: 80%;
+				border-radius: 50%;
+				object-fit: cover;
+				background-color: white;
+			}
+		}		
+	} // ./.vitals
+}
+
+.DonationProgress {
+	height: 350px;
+
+	.target {
+		color: @bold-text-colour;
+	}
+
+	&.no-money {
+		color: @bold-text-colour;
+	}
+
+	.ProgressGraph {
+		height: 50%;
+		text-align: center;
+		color: white;
+		background: @grey;
+		
+		.bar-container {
+			.progress-pointer, .donation-progress-bar {
+				display: inline-block;
+			}
+			.progress-pointer {
+				transform: translateY(-16%);
+				font-size: 1.5em;
+				font-weight: bold;
+				color: @progress-bar-done;
+				margin: auto -6px;
+			}
+			.donation-progress-bar {
+				height: 150px;
+				width: 50px;
+				.remaining {
+					background-color: white;
+				}
+				.done {
+					background-color: @progress-bar-done;
+				}
+			}
+		}
+	}
+
+	.progress-details {
+		height: 50%;
+		text-align: center;
+		color: black;
+	}
+} // /.DonationProgress
+
+#FundRaiserPage {
+	.me {
+		.AvatarImg {
+			width: 150px;
+			height: 150px;
+			object-fit: cover;
+			margin-right: 0.5em;
+		}
+	}
+
+	.charity-info {
+		.charity-logo {
+			width: 150px;
+			height: 150px;
+			object-fit: contain;
+			float: left;
+		}
+	}
+
+	.supporters {
+		list-style-type: none;
+		.donation {
+			.bottom-divider;
+			position: relative;
+			
+			.supporter-photo {
+				width: 75px;
+				height: 75px;
+				border-radius: 50%;
+				object-fit: cover;
+				float: left;
+				margin-right: 0.5em;
+				margin-bottom: 0.5em;
+			}
+			.donation-date {
+				position: absolute;
+				top: 0;
+				right: 0;
+				color: @donation-date;
+			}
+			.amount-donated {
+				font-size: 2em;
+			}
+		}
+
+		.show-more {
+			text-align: center;
+			padding: 0.5em;
+		}
+	}
+}
+
+
+@media only screen and (max-width : 768px) {
+	div#mainDiv > div > div.container.avoid-navbar > div#fundraiser.page > div > div#FundRaiserPage.container > div.row > div.me.col-md-6 { min-height: 300px; }
+}
+
+@media only screen and (max-width : 768px) {
+	div#mainDiv > div > div.container.avoid-navbar > div#fundraiser.page > div > div#FundRaiserPage.container > div.row > div.charity-info.col-md-6 { min-height: 300px; }
+}
+
+@media only screen and (max-width : 320px) {
+	div#mainDiv > div > div.container.avoid-navbar > div#fundraiser.page > div > div#FundRaiserPage.container > div.vitals.row > div.col-md-6 > div.user-event-photo { height: 200px; width: 200px; }
+}	

@@ -1,0 +1,112 @@
+@import "positioning.less";
+@import "colours.less";
+
+/** 
+	NB: We want to have borders which stretch 100%, but contents which are smaller.
+	So we can't simply put some padding on the page :(
+	Instead, add this to content elements:
+
+		.padded-block;
+*/
+
+@container-max-width: 800px;
+@item-max-width: 650px;
+
+.padded-block {
+	max-width: @item-max-width;
+	margin-left: auto;	
+	margin-right: auto;
+}
+
+/**
+TODO have all pages follow one style
+(with 1 column / 2 column variants)
+
+For now -- safer to have the Kiltwalk stuff styled separately
+*/
+.padded-page {
+
+	max-width: @container-max-width;
+	margin: auto;
+	background-color: white;
+	box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.2);	
+	min-height: 50vw;
+
+	/** 
+	a branded picture banner
+	*/
+	.page-banner {
+		width: 100%;
+	}
+
+	/**
+	i.e. the page title -- maybe use h1??
+	*/
+	.page-masthead {
+		background-color: @masthead-bg;
+		padding: 0.25em;
+		text-align: center;
+		.event-name {
+			color: white;
+		}
+		.event-date {
+			color: @pale-blue;
+		}
+	}
+
+	
+	h3, h4 {
+		.padded-block;
+		/*margin-bottom: -0.15em;*/
+	}
+	/**
+	Put this on the wider div just below the .header
+	*/
+	hr {
+		padding: 0;
+		margin: 0;
+		margin-bottom: 8px;
+		border-top: medium solid @header-line-colour;
+	}	
+
+	/**
+	Bootstrap Containers have set widths for screen sizes - override!
+	*/
+	.container {
+		max-width: @container-max-width;
+	}
+
+} // ./page
+
+// Pages like FundRaiserPage and RegisterPage have a large image bg (image url set as inline style)
+.fullwidth-bg {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-size: cover;
+	background-attachment: fixed;
+	z-index: -1
+}
+
+
+// Which pages get this??
+#register, #fundraiser {
+	.padded-page;	
+}
+
+/** Only allow vertical resize of textareas */
+textarea.form-control {
+	resize: vertical;
+}
+
+
+@media only screen and (max-width : 768px) {
+	.padded-page {
+		box-shadow: none;
+	}
+	.padded-block {
+		max-width: 90%;
+	}
+}

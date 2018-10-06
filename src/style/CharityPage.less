@@ -1,0 +1,272 @@
+@import "colours.less";
+@import "positioning.less";
+
+// TODO move some of this from page-specific styling to "these are our widgets"
+// For more consistent style + easier maintenance
+
+#charity {
+	.column {
+		box-shadow: 0 0 20px 5px rgba(0, 0, 0, 0.2);
+		background-color: white;
+
+		ul.nav.nav-tabs {
+			.extend-content-to-sides(@bs-column-padding);
+			background-color: @charity-page-greyline;
+			border: none;
+			li {
+				margin-bottom: 0;
+
+				/* Override Bootstrap bg colours & bring active tab to front */
+				background-color: transparent;
+				z-index: 9;
+				&.active {
+					background-color: transparent;
+					z-index: 10;
+				}
+
+
+				a, &.active a {
+					/* Remove blue border when clicked */
+					&:active {
+						border: none;
+						outline: none;
+					}
+
+					border: none;
+					border-radius: 0;
+					margin: 0;
+					z-index: 9;
+					padding-bottom: 0;
+					font-weight: bold;
+					/* Remove bootstrap background */
+					background-color: transparent;
+					/* Fancy tab shape */
+					&:before {
+						content: ''; 
+						position: absolute;
+						top: -5px; right: 0; bottom: 0; left: 0;
+						transform: perspective(110px) rotateX(30deg);
+						transform-origin: bottom;
+						margin-left: -10px;
+						margin-right: -10px;	
+					}
+				}
+
+				a:before {
+					background-color: @charity-page-greyline;
+					z-index: -1;
+				}
+				&.active a:before {
+					background-color: @charity-page-greybg;
+					z-index: -2;
+				}
+			}
+		}
+	} // ./column
+
+	.top-bands {
+		position: fixed;
+		top: @navbar-height;
+		left: 0;
+		width: 100%;
+		.band1 {
+			background: linear-gradient(to right, #819EB7, #C1DEF2);
+			height: @band-1-height;
+		}
+		.band2 {
+			background: linear-gradient(to right,#ACB09F, #D2D6C3);
+			height: @band-2-height;
+		}
+		.band3 {
+			background: linear-gradient(to right, #819EB7, #C1DEF2);
+			height: @band-3-height;
+		}
+	}
+}
+
+#charity {
+	.impact-column {
+		.header {
+			background: #C1DEF2;
+			.extend-bg-to-sides(@bs-column-padding);
+			padding-top: @band-1-height;
+			margin-bottom: 30px;
+
+			.charity-name {
+				background-color: #D2D6C3;
+				text-transform: uppercase;
+				font-weight: bold;
+				margin-top: 0;
+				margin-bottom: 0;
+				.extend-bg-to-sides(@bs-column-padding);
+				line-height: @band-2-height;
+			}
+			.tags {
+				color: white;
+				text-transform: lowercase;
+				margin-top: 0;
+				margin-bottom: 0;
+				border-left: 0;
+				padding-left: 5px;
+				padding-right: 5px;
+				.extend-content-to-sides(@bs-column-padding);
+
+				span {
+					line-height: 32px;
+				}
+
+				&.why-tags {					
+					span {
+						border-left: 15px solid @why-tags-fade;
+						background-color: @why-tags;
+					}
+				}
+				&.where-tags {					
+					span {
+						border-left: 15px solid @where-tags-fade;
+						background-color: @where-tags;
+					}
+				}
+
+				a {
+					color: inherit;
+				}
+
+			}
+
+		} // ./header
+	} // ./.impact-column
+} 
+
+#charity {
+	.info-column {
+		height: 100%;
+		/* hide long urls */
+		overflow-x: hidden;
+
+		.header {
+			.extend-bg-to-sides(@bs-column-padding);
+			background-color: @grey-lightest; // TODO use colours.less
+			border-style: solid;
+			border-top-color: @palest-blue;
+			border-bottom-color: @palest-blue;
+			border-width: @band-1-height 0 @band-3-height 0;
+			line-height: @band-2-height;
+			margin-bottom: 50px;
+		}
+
+		.nav-tabs {
+			li {
+				background-color:white;
+				&.active {
+					background-color: @charity-page-greybg;
+				}
+			}
+			font-size: 2em;
+		}
+
+		.tab-content {
+			.extend-bg-to-sides(@bs-column-padding);
+			background-color: @charity-page-greybg;
+		}
+
+		h2, h3 {
+			border-bottom: 1px solid white;
+		}
+
+		.charity-about, .charity-extra {
+			/* Prevent margin collapse with first element so bg colour extends to top */
+			overflow-y: auto; 
+			// overflow-x:auto leads to an unwanted scrollbar on narrow screens e.g. seen here on linux desktop http://local.sogive.org/#charity?charityId=voluntary-service-overseas-vso
+			overflow-x: hidden;
+		}
+
+		.charity-extra {
+			background-color: @charity-page-greybg;
+			
+			.extra-project {
+				img.project-image {
+					width: 100%;
+				}
+			}
+		} // ./charity-extra
+	} // ./info-column
+
+	.donation-column {
+		background-color: @charity-page-greybg;
+		margin-top: 15px;
+	}
+} // ./#charity
+
+.quote {
+	padding:2rem;
+	font-size:175%;
+}
+.quote-marks {
+	color: @donation-number-fg;
+}
+
+// .info-column
+.charity-about {
+	@circles-width: 320px;
+	@big-circle: (@circles-width * 0.6545);
+	@small-circle: (@circles-width * 0.4727);
+
+	.images {
+		position: relative;
+		height: 225px;
+		width: @circles-width;
+		margin: 40px auto;
+
+		.charity-image, .charity-logo {
+			position: absolute;
+			bottom: 0;
+			background-size: contain;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+
+			img {
+				border-radius: 50%;
+				object-fit: contain;
+				background-color: white;
+			}
+		}
+
+		
+		.charity-image {
+			z-index: 10;
+			left: 0;
+			background-image: url('/img/circle-bg-left.svg');
+			height: @big-circle;
+			width: @big-circle;
+			img {
+				height: 85%;
+				width: 85%;
+			}
+		}
+		.charity-logo {
+			z-index: 20;
+			right: 0;
+			background-image: url(/img/circle-bg-right.svg);
+			height: @small-circle;
+			width: @small-circle;
+			img {
+				width: 70%;
+				height: 70%;
+			}
+		}
+	}
+
+	.descriptions {
+		.description-short {
+			font-size: 120%;
+		}
+	}
+
+	.url {
+		font-size: 120%;
+		width: 100%;
+		text-align: center;
+	}
+} // /.charity-about
