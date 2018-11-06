@@ -7,6 +7,9 @@ import SJTest from 'sjtest';
 import BS from './base/components/BS3';
 import MainDiv from './components/MainDiv';
 import {getUrlVars, addScript} from 'wwutils';
+// share jquery
+import $ from 'jquery';
+window.$ = $;
 
 ReactDOM.render(
 	<MainDiv />,
