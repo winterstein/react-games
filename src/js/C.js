@@ -14,7 +14,7 @@ C.app = {
 	name: "Games",
 	service: "games",
 	logo: "/img/logo.png",
-	website: "https://sogive.org",
+	website: "https://winterstein.me.uk",
 	homeLogo: "/img/logo-white-sm.png",
 	version: {app: '0.1.0'}
 };

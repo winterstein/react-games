@@ -7,6 +7,9 @@ const game = DataStore.getValue('game');
 window.game = game;
 
 const start = new Date().getTime();
+/**
+ * update all sprites based on tick value
+ */
 const gameUpdate = () => {
 	let tick = new Date().getTime() - start;	
 	// loop over active sprites
@@ -17,6 +20,7 @@ const gameUpdate = () => {
 	// trigger an update
 	DataStore.setValue(['game','tick'], tick);
 };
+
 const spriteUpdate = (sprite) => {
 	// turn towards strawberries?
 	spriteTurn(sprite);

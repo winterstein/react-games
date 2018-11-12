@@ -11,9 +11,7 @@ import {getUrlVars, addScript} from 'wwutils';
 import $ from 'jquery';
 window.$ = $;
 
-ReactDOM.render(
-	<MainDiv />,
-document.getElementById('mainDiv'));
+ReactDOM.render(<MainDiv />, document.getElementById('mainDiv'));
 
 // TEST?
 // STATUS: experimental! This allows you to load and run a script via the test= parameter

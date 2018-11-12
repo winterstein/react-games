@@ -17,7 +17,6 @@ import {getActiveSprites, getSprite} from '../engine/garden-game';
 // https://graphicriver.net/item/funny-flying-bugs/13665994?s_rank=4
 // https://www.gameartguppy.com/shop/red-ant/
 
-
 const GardenPage = () => {
 	return (
 		<div className="page GardenPage">
