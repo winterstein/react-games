@@ -1,6 +1,6 @@
 
 import DataStore from '../base/plumbing/DataStore';
-import {defineType} from '../base/data/DataClass';
+import DataClass from '../base/data/DataClass';
 
 DataStore.update({game: {}});
 const game = DataStore.getValue('game');
@@ -41,7 +41,10 @@ const spriteTurn = sprite => {
 
 };
 
-const Sprite = defineType('Sprite');
+class Sprite extends DataClass {
+
+}
+DataClass.register(Sprite, 'Sprite');
 
 Sprite.testCollision = (a, b) => {
 	if (a===b) return false;
